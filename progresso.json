@@ -1,0 +1,17 @@
+{
+  "current_index": 360,
+  "current_video": "107103.mp4",
+  "offset_seconds": 0,
+  "hours_per_day": 2.0,
+  "days_per_week": 5,
+  "mode": "manual",
+  "exam_date": null,
+  "root_dir": null,
+  "history": [
+    {
+      "date": "2026-11-20",
+      "ts": "2026-11-20T14:29:28",
+      "completed": 83702
+    }
+  ]
+}
