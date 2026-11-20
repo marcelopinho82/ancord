@@ -243,8 +243,6 @@ def load_videos():
     prog["current_index"] = idx
     st.session_state.progress = prog
     st.session_state.pos_idx = idx
-    off = int(prog.get("offset_seconds", 0))
-    st.session_state.off_min, st.session_state.off_sec = divmod(off, 60)
 
 
 def cumulative(videos):
@@ -260,15 +258,10 @@ def persist_position():
     p = st.session_state.progress
     n = len(videos)
     idx = min(int(st.session_state.pos_idx), n)
-    off = int(st.session_state.off_min) * 60 + int(st.session_state.off_sec)
-    if idx < n:
-        off = min(off, max(videos[idx][1] - 1, 0))
-    else:
-        off = 0
     p["current_index"] = idx
     p["current_video"] = videos[idx][0] if idx < n else None
-    p["offset_seconds"] = off
-    completed = cumulative(videos)[idx] + off
+    p["offset_seconds"] = 0
+    completed = cumulative(videos)[idx]
     log_history(p, completed)
     save_progress(p)
 
@@ -276,13 +269,11 @@ def persist_position():
 def advance():
     n = len(st.session_state.videos)
     st.session_state.pos_idx = min(st.session_state.pos_idx + 1, n)
-    st.session_state.off_min = st.session_state.off_sec = 0
     persist_position()
 
 
 def go_back():
     st.session_state.pos_idx = max(st.session_state.pos_idx - 1, 0)
-    st.session_state.off_min = st.session_state.off_sec = 0
     persist_position()
 
 
@@ -375,7 +366,7 @@ idx = min(st.session_state.pos_idx, n)
 
 # ── Onde estou ──
 st.subheader("📍 Onde estou agora")
-c1, c2, c3, c4 = st.columns([5, 1, 1, 3])
+c1, c4 = st.columns([5, 3])
 with c1:
     st.selectbox(
         "Vídeo que estou assistindo (ou o próximo a assistir)",
@@ -384,11 +375,6 @@ with c1:
                                if i < n else "🏁 Terminei todos os vídeos"),
         key="pos_idx", on_change=persist_position,
     )
-with c2:
-    st.number_input("Minuto", 0, 600, key="off_min", on_change=persist_position,
-                    help="Quanto já assisti do vídeo atual (opcional)")
-with c3:
-    st.number_input("Seg.", 0, 59, key="off_sec", on_change=persist_position)
 with c4:
     st.write("")
     b1, b2 = st.columns(2)
@@ -397,10 +383,7 @@ with c4:
 
 idx = min(st.session_state.pos_idx, n)
 off = 0
-if idx < n:
-    off = min(int(st.session_state.off_min) * 60 + int(st.session_state.off_sec),
-              max(videos[idx][1] - 1, 0))
-done_s = cum[idx] + off
+done_s = cum[idx]
 remaining_s = max(total_s - done_s, 0)
 pct_time = done_s / total_s * 100 if total_s else 0
 pct_videos = idx / n * 100
