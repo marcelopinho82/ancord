@@ -341,6 +341,19 @@ with st.sidebar:
                 st.error(str(e))
 
     st.divider()
+    st.subheader("💾 Backup do progresso")
+    if PROGRESS.exists():
+        st.download_button(
+            "⬇️ Baixar progresso.json",
+            data=PROGRESS.read_bytes(),
+            file_name="progresso.json",
+            mime="application/json",
+            width="stretch",
+        )
+    else:
+        st.caption("O progresso.json ainda não foi criado. Ele aparece depois da primeira atualização de posição.")
+
+    st.divider()
     with st.expander("⚠️ Zerar progresso"):
         if st.checkbox("Confirmo que quero apagar meu progresso e histórico"):
             if st.button("Zerar tudo"):
