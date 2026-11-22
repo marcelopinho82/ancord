@@ -1,5 +1,5 @@
 {
-  "current_index": 407,
+  "current_index": 406,
   "current_video": "203201.mp4",
   "offset_seconds": 0,
   "hours_per_day": 2.0,
@@ -10,8 +10,8 @@
   "history": [
     {
       "date": "2026-11-22",
-      "ts": "2026-11-22T20:40:28",
-      "completed": 83702
+      "ts": "2026-11-22T23:53:52",
+      "completed": 96146
     }
   ]
 }
