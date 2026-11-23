@@ -1,6 +1,6 @@
 {
-  "current_index": 406,
-  "current_video": "203201.mp4",
+  "current_index": 414,
+  "current_video": "204106.mp4",
   "offset_seconds": 0,
   "hours_per_day": 2.0,
   "days_per_week": 5,
@@ -12,6 +12,11 @@
       "date": "2026-11-22",
       "ts": "2026-11-22T23:53:52",
       "completed": 96146
+    },
+    {
+      "date": "2026-11-23",
+      "ts": "2026-11-23T00:59:48",
+      "completed": 99340
     }
   ]
 }
